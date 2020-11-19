@@ -89,6 +89,7 @@ def Interpretate_Players_Info(info, player):
         elif(i == "D4"):
             player.append(D4)
     print("El jugador tiene: ", temp_string_list)
+    
 def playerBox(name,x_axis, y_axis):
     pygame.draw.rect(win, (201,206,213), (x_axis,y_axis, 80, 40))
     nm = myfont.render(name, False, (0, 0, 0))
