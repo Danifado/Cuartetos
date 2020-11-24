@@ -1,6 +1,6 @@
 letrasProposicionales = ['p', 'q', 'r','s', 'y']
 def complemento(letra):
-    if letra in letrasProposicionales:
+    if len(letra) == 1:
         complemento = '-' + letra
         return complemento
     elif (letra[0] == '-'):
@@ -103,18 +103,18 @@ def DPLL(S,I):
         return DPLL(S3, I3)
 
 
-
-S1 = [['p', 'q'], ['r'], ['q', '-r']]
-S2 = [['p'], ['-p','q'], ['-q', 'r', 's']]
-S3 = [['p'], ['-p','q','-r'], ['-r', 's'], ['q']]
-S4 = [['p', '-q', 'r'], ['-p','q','-r'], ['-p', '-q', 'r'], ['-p', '-q', '-r']]
-S5 = [['p'], ['-p']]
-SG = [S1,S2,S3,S4,S5]
-
-for i in SG:
-    I = {}
-    print("S = ", i)
-    conjunto, interp = DPLL(i,I)
-    print(conjunto)
-    print(interp)
-    print("")
+#
+# S1 = [['p', 'q'], ['r'], ['q', '-r']]
+# S2 = [['p'], ['-p','q'], ['-q', 'r', 's']]
+# S3 = [['p'], ['-p','q','-r'], ['-r', 's'], ['q']]
+# S4 = [['p', '-q', 'r'], ['-p','q','-r'], ['-p', '-q', 'r'], ['-p', '-q', '-r']]
+# S5 = [['p'], ['-p']]
+# SG = [S1,S2,S3,S4,S5]
+#
+# for i in SG:
+#     I = {}
+#     print("S = ", i)
+#     conjunto, interp = DPLL(i,I)
+#     print(conjunto)
+#     print(interp)
+#     print("")

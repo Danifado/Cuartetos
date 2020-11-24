@@ -1,3 +1,5 @@
+import FNC as F
+
 class Tree(object):
     def __init__(self, label, left, right):
         self.left = left
@@ -23,6 +25,17 @@ def String2Tree(A):
         else:
             print(u"Hay un problema: el símbolo " + str(c)+ " no se reconoce")
     return Pila[-1]
+
+def Inorder(f):
+    # Imprime una formula como cadena
+    conectivosBinarios = ['Y', 'O', '>', '=']
+
+    if f.right ==None:
+        return f.label
+    elif f.label == '-':
+        return '-' + Inorder(f.right)
+    elif f.label in conectivosBinarios:
+        return '('+Inorder(f.left)+f.label+Inorder(f.right)+')'
 
 def Inorderp(f):
     if f.right == None:
@@ -88,15 +101,15 @@ def decodificaQ(codigo, Np, Nn, Nj):
     p, n = decodifica(v1, Np, Nn)
     return p, n, j
 
-letras = []
+letrasProposicionalesA = []
 for k in range(Nnumeros):
     print("Jugador: "+str(k))
     for i in range(Npalos):
         print("Palo " + str(i) + ": ", end=" ")
-        for j in range(Nnumeros):
+        for j in range(Njugadores):
             cod = Q(i, j, k, Npalos, Nnumeros, Njugadores)
             print(cod, end = " ")
-            letras.append(cod)
+            letrasProposicionalesA.append(cod)
         print("")
     print('\n')
 
@@ -132,32 +145,38 @@ def noRepsGrande():
                     formula += noRepeticion(j, p, n) + "Y"
     return formula
 
-formulaNoReps = noRepsGrande()
+# formulaNoReps = noRepsGrande()
 # print(formulaNoReps)
 # print(Inorderp(String2Tree(formulaNoReps)))
-
+# print("Creando arbol...")
+# regla_arbol = String2Tree(formulaNoReps)
+# print("Creando cadena inorder...")
+# regla_inorder = Inorder(regla_arbol)
+# print("Transformacion de Tseitin...")
+# regla_fnc = F.Tseitin(regla_inorder, letrasProposicionalesA)
+# print(regla_fnc)
 
 ################################################################
 # AHORA VAMOS A CODIFICAR LA FUNCION PEDIR P, QUE RELACIONA UN PALO p Y AL JUGADOR j AL QUE DEBE PEDIRSELO
 
-def codificaP(p, j, Np, Nj):
-    # Funcion que codifica un palo p y un número n
-    pide = Nj*p + j
-    # pide es un número que relaciona un palo (A = 0, B = 1, C = 2, D = 3) y un jugador (0,1,2,3,4)
-    codigo = chr(1000 + pide) #Una letra proposicional unica basada en el numero pide
-    return codigo
-
-def decodificaP(pide, Nj):
-    # Funcion que codifica una carta (un número entero) y retorna el palo y el número de la carta
-    x = ord(pide) - 1000
-    p = int(x / Nj)
-    j = x % Nj
-    return j, p
-
-print("Codificación de las letras para pedir: ")
-for p in range(Npalos):
-    for j in range(Njugadores):
-        cod = codificaP(p, j, Npalos, Njugadores)
-        palo, jug = decodificaP(cod, Njugadores)
-        print("La letra ", cod," significa pide el palo ", palo, " al jugador ", jug)
-    print("")
+# def codificaP(p, j, Np, Nj):
+#     # Funcion que codifica un palo p y un número n
+#     pide = Nj*p + j
+#     # pide es un número que relaciona un palo (A = 0, B = 1, C = 2, D = 3) y un jugador (0,1,2,3,4)
+#     codigo = chr(1000 + pide) #Una letra proposicional unica basada en el numero pide
+#     return codigo
+#
+# def decodificaP(pide, Nj):
+#     # Funcion que codifica una carta (un número entero) y retorna el palo y el número de la carta
+#     x = ord(pide) - 1000
+#     p = int(x / Nj)
+#     j = x % Nj
+#     return j, p
+#
+# print("Codificación de las letras para pedir: ")
+# for p in range(Npalos):
+#     for j in range(Njugadores):
+#         cod = codificaP(p, j, Npalos, Njugadores)
+#         palo, jug = decodificaP(cod, Njugadores)
+#         print("La letra ", cod," significa pide el palo ", palo, " al jugador ", jug)
+#     print("")
