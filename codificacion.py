@@ -101,6 +101,21 @@ def decodificaQ(codigo, Np, Nn, Nj):
     p, n = decodifica(v1, Np, Nn)
     return p, n, j
 
+# letrasProposicionalesA = []
+# for k in range(Nnumeros):
+#     print("Jugador: "+str(k))
+#     for i in range(Npalos):
+#         print("Palo " + str(i) + ": ", end=" ")
+#         for j in range(Njugadores):
+#             cod = Q(i, j, k, Npalos, Nnumeros, Njugadores)
+#             print(cod, end = " ")
+#             letrasProposicionalesA.append(cod)
+#         print("")
+#     print('\n')
+
+Npalos = 4
+Nnumeros = 4
+Njugadores = 4
 letrasProposicionalesA = []
 for k in range(Nnumeros):
     print("Jugador: "+str(k))
@@ -113,6 +128,54 @@ for k in range(Nnumeros):
         print("")
     print('\n')
 
+def codInputIndividual(letra, jugador):
+    #Funcion que toma cada carta de cada jugador y codifica su letra proposisional
+    Npalos = 4
+    Nnumeros = 4
+    Njugadores = 4
+    if letra[0] == "A":
+        palo = 0
+    elif letra[0] == "B":
+        palo = 1
+    elif letra[0] == "C":
+        palo = 2
+    elif letra[0] == "D":
+        palo = 3
+
+    return Q(palo, int(letra[1])-1, jugador-1, Npalos, Nnumeros, Njugadores)
+
+def codInputGrupalXJugador(letras, jugador):
+    formCl = []
+    for x in letras:
+        tmp1 = []
+        tmp1.append(codInputIndividual(x, jugador))
+
+        formCl.append(tmp1)
+    return formCl
+
+def reglaPosicionalTemporal(rg_tmp, posiciones, inter):
+    ## esta regla recibe una lista vacía rg_tmp, una lista de listas llamada posiciones y un diccionario vacío inter
+    ## posiciones está compuesta por 4 listas (número de inputs) de la forma por ejemplo: ["A1","B2", "A3", "D4"]
+    for i in range(1,5):
+        rg_tmp += codInputGrupalXJugador(posiciones[i-1], i)
+        for l in codInputGrupalXJugador(posiciones[i-1], i):
+            for i1 in l:
+                inter[i1] = 1
+
+# Player1 = []
+# Player1Letras = ["A1","A2","A3","A4"]
+# Player2 = []
+# Player2Letras = ["B1","B2","B3","B4"]
+# Player3 = []
+# Player3Letras = ["C1","C2","C3","C4"]
+# Player4 = []
+# Player4Letras = ["D1","D2","D3","D4"]
+# Regla_tmp_fclausal = []
+# posiciones = [Player1Letras, Player2Letras, Player3Letras, Player4Letras]
+# inter = {}
+# regla_posicional_temporal(Regla_tmp_fclausal, posiciones, inter)
+# print("Regla en forma clausal: ",Regla_tmp_fclausal)
+# print("Interpretación: ", inter)
 
 
 #########################################################################
@@ -145,16 +208,9 @@ def noRepsGrande():
                     formula += noRepeticion(j, p, n) + "Y"
     return formula
 
-# formulaNoReps = noRepsGrande()
+formulaNoReps = noRepsGrande()
 # print(formulaNoReps)
 # print(Inorderp(String2Tree(formulaNoReps)))
-# print("Creando arbol...")
-# regla_arbol = String2Tree(formulaNoReps)
-# print("Creando cadena inorder...")
-# regla_inorder = Inorder(regla_arbol)
-# print("Transformacion de Tseitin...")
-# regla_fnc = F.Tseitin(regla_inorder, letrasProposicionalesA)
-# print(regla_fnc)
 
 ################################################################
 # AHORA VAMOS A CODIFICAR LA FUNCION PEDIR P, QUE RELACIONA UN PALO p Y AL JUGADOR j AL QUE DEBE PEDIRSELO

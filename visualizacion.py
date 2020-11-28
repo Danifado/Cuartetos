@@ -1,6 +1,9 @@
  # -*- coding: utf-8 -*-
-
 import pygame
+import json
+import unit_propagate
+import codificacion
+import guardar_reglas
 
 #Para que el codigo funcione correctamente, los valores que deben haber
 #el input de cada player son:
@@ -49,47 +52,67 @@ height = 60
 vel = 5
 
 Player1 = []
+Player1Letras = []
 Player2 = []
+Player2Letras = []
 Player3 = []
+Player3Letras = []
 Player4 = []
+Player4Letras = []
 
-def Interpretate_Players_Info(info, player):
+def Interpretate_Players_Info(info, player, pletras):
     temp_string_list = info.split()
     for i in temp_string_list:
         if(i == "A1"):
             player.append(A1)
+            pletras.append("A1")
         elif(i == "A2"):
             player.append(A2)
+            pletras.append("A2")
         elif(i == "A3"):
             player.append(A3)
+            pletras.append("A3")
         elif(i == "A4"):
             player.append(A4)
+            pletras.append("A4")
         elif(i == "B1"):
             player.append(B1)
+            pletras.append("B1")
         elif(i == "B2"):
             player.append(B2)
+            pletras.append("B2")
         elif(i == "B3"):
             player.append(B3)
+            pletras.append("B3")
         elif(i == "B4"):
             player.append(B4)
+            pletras.append("B4")
         elif(i == "C1"):
             player.append(C1)
+            pletras.append("C1")
         elif(i == "C2"):
             player.append(C2)
+            pletras.append("C2")
         elif(i == "C3"):
             player.append(C3)
+            pletras.append("C3")
         elif(i == "C4"):
             player.append(C4)
+            pletras.append("C4")
         elif(i == "D1"):
             player.append(D1)
+            pletras.append("D1")
         elif(i == "D2"):
             player.append(D2)
+            pletras.append("D2")
         elif(i == "D3"):
             player.append(D3)
+            pletras.append("D3")
         elif(i == "D4"):
             player.append(D4)
+            pletras.append("D4")
     print("El jugador tiene: ", temp_string_list)
-    
+
 def playerBox(name,x_axis, y_axis):
     pygame.draw.rect(win, (201,206,213), (x_axis,y_axis, 80, 40))
     nm = myfont.render(name, False, (0, 0, 0))
@@ -164,10 +187,33 @@ infoP2 = input("¿Cual es la información del jugador 2?: ")
 infoP3 = input("¿Cual es la información del jugador 3?: ")
 infoP4 = input("¿Cual es la información del jugador 4?: ")
 
-infoP1 = Interpretate_Players_Info(infoP1, Player1)
-infoP2 = Interpretate_Players_Info(infoP2, Player2)
-infoP3 = Interpretate_Players_Info(infoP3, Player3)
-infoP4 = Interpretate_Players_Info(infoP4, Player4)
+infoP1 = Interpretate_Players_Info(infoP1, Player1, Player1Letras)
+infoP2 = Interpretate_Players_Info(infoP2, Player2, Player2Letras)
+infoP3 = Interpretate_Players_Info(infoP3, Player3, Player3Letras)
+infoP4 = Interpretate_Players_Info(infoP4, Player4, Player4Letras)
+
+Regla_tmp_fclausal = []
+posiciones = [Player1Letras, Player2Letras, Player3Letras, Player4Letras]
+inter = {}
+codificacion.reglaPosicionalTemporal(Regla_tmp_fclausal, posiciones, inter)
+print("Regla temporal de posicion: ", Regla_tmp_fclausal)
+print("Diccionario de interpretación: ", inter)
+regla_fc = Regla_tmp_fclausal
+letrasProposicionalesA = [chr(x) for x in range(256, 1000)] # Modificar de acuerdo a reglas
+letrasProposicionalesB = [chr(x) for x in range(2001, 3000)] # Modificar de acuerdo a reglas
+guardar_reglas.guardar_fnc(regla_fc, 'regla1', letrasProposicionalesA, letrasProposicionalesB)
+
+with open('regla0.json', 'r') as file:
+    reglas = json.load(file)
+
+with open('regla1.json', 'r') as file:
+    reglas += json.load(file)
+
+SAT, i = unit_propagate.DPLL(reglas, inter)
+
+print("Satisfacible? ", SAT)
+
+
 
 run = True
 while run:

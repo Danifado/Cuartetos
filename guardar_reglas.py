@@ -31,7 +31,7 @@ def guardar_inorder(regla_inorder, archivo, letrasProposicionalesA, letrasPropos
 
 def guardar_fnc(regla_fnc, archivo, letrasProposicionalesA, letrasProposicionalesB):
     print("Forma clausal...")
-    regla_clausal = F.formaClausal(regla_fnc)
+    regla_clausal = regla_fnc#F.formaClausal(regla_fnc)
     print(f"Guardando a archivo {archivo}...")
     with open(archivo + '.json', 'w') as outfile:
         json.dump(regla_clausal, outfile)
@@ -39,14 +39,9 @@ def guardar_fnc(regla_fnc, archivo, letrasProposicionalesA, letrasProposicionale
 
 print("Creando reglas...")
 regla_polaca = R.noRepsGrande()
-print("LA regla polaca es: ",regla_polaca)
 letrasProposicionalesA = [chr(x) for x in range(256, 1000)] # Modificar de acuerdo a reglas
 letrasProposicionalesB = [chr(x) for x in range(1000, 2000)] # Modificar de acuerdo a reglas
 guardar_polaca(regla_polaca, 'regla0', letrasProposicionalesA, letrasProposicionalesB)
-
-# regla_polaca = R.regla1()
-# letrasProposicionalesB = [chr(x) for x in range(2001, 3000)] # Modificar de acuerdo a reglas
-# guardar_polaca(regla_polaca, 'regla1', letrasProposicionalesA, letrasProposicionalesB)
 
 print("Finalizado!")
 
