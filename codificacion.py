@@ -7,7 +7,7 @@ class Tree(object):
         self.label = label
 
 def String2Tree(A):
-    letrasProposicionales=[chr(x) for x in range(256, 600)]
+    letrasProposicionales=[chr(x) for x in range(256, 3500)]
     Conectivos = ['O','Y','>','=']
     Pila = []
     for c in A:
@@ -215,24 +215,37 @@ formulaNoReps = noRepsGrande()
 ################################################################
 # AHORA VAMOS A CODIFICAR LA FUNCION PEDIR P, QUE RELACIONA UN PALO p Y AL JUGADOR j AL QUE DEBE PEDIRSELO
 
-# def codificaP(p, j, Np, Nj):
-#     # Funcion que codifica un palo p y un número n
-#     pide = Nj*p + j
-#     # pide es un número que relaciona un palo (A = 0, B = 1, C = 2, D = 3) y un jugador (0,1,2,3,4)
-#     codigo = chr(1000 + pide) #Una letra proposicional unica basada en el numero pide
-#     return codigo
-#
-# def decodificaP(pide, Nj):
-#     # Funcion que codifica una carta (un número entero) y retorna el palo y el número de la carta
-#     x = ord(pide) - 1000
-#     p = int(x / Nj)
-#     j = x % Nj
-#     return j, p
-#
-# print("Codificación de las letras para pedir: ")
-# for p in range(Npalos):
-#     for j in range(Njugadores):
-#         cod = codificaP(p, j, Npalos, Njugadores)
-#         palo, jug = decodificaP(cod, Njugadores)
-#         print("La letra ", cod," significa pide el palo ", palo, " al jugador ", jug)
-#     print("")
+def codificaP(p, j, Np, Nj):
+    # Funcion que codifica un palo p y un número n
+    pide = Nj*p + j
+    # pide es un número que relaciona un palo (A = 0, B = 1, C = 2, D = 3) y un jugador (0,1,2,3,4)
+    codigo = chr(1000 + pide) #Una letra proposicional unica basada en el numero pide
+    return codigo
+
+def decodificaP(pide, Nj):
+    # Funcion que codifica una carta (un número entero) y retorna el palo y el número de la carta
+    x = ord(pide) - 1000
+    p = int(x / Nj)
+    j = x % Nj
+    return j, p
+
+def P():
+    letras = []
+    for p in range(4):
+        letras.append(chr(p+2000))
+    inicial = True
+    formula1 = letras[0]+'ĀĄOĈČOO'+'='
+    formula2 = letras[1]+'ĐĔOĘĜOO'+'='
+    formula3 = letras[2]+'ĠĤOĨĬOO'+'='
+    formula4 = letras[3]+'İĴOĸļOO'+'='
+    resultado = formula1 + formula2 + 'O' + formula3 + formula4 + 'O' + '='
+    return resultado
+
+print("Codificación de las letras para pedir: ")
+for p in range(Npalos):
+    for j in range(Njugadores):
+        cod = codificaP(p, j, Npalos, Njugadores)
+        palo, jug = decodificaP(cod, Njugadores)
+        print("La letra ", cod," significa pide el palo ", palo, " al jugador ", jug)
+    print("")
+

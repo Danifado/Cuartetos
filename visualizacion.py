@@ -209,6 +209,9 @@ with open('regla0.json', 'r') as file:
 with open('regla1.json', 'r') as file:
     reglas += json.load(file)
 
+with open('regla2.json', 'r') as file:
+    reglas += json.load(file)
+
 SAT, i = unit_propagate.DPLL(reglas, inter)
 
 print("Satisfacible? ", SAT)

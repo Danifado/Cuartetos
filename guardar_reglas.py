@@ -38,11 +38,16 @@ def guardar_fnc(regla_fnc, archivo, letrasProposicionalesA, letrasProposicionale
     print("Terminado!")
 
 print("Creando reglas...")
+# Creacion de la regla 0
 regla_polaca = R.noRepsGrande()
 letrasProposicionalesA = [chr(x) for x in range(256, 1000)] # Modificar de acuerdo a reglas
 letrasProposicionalesB = [chr(x) for x in range(1000, 2000)] # Modificar de acuerdo a reglas
 guardar_polaca(regla_polaca, 'regla0', letrasProposicionalesA, letrasProposicionalesB)
-
+# Creacion de la regla 2
+regla_polaca = R.P()
+letrasProposicionalesA = [chr(x) for x in range(256, 2005)] # Modificar de acuerdo a reglas
+letrasProposicionalesB = [chr(x) for x in range(2005, 3000)] # Modificar de acuerdo a reglas
+guardar_polaca(regla_polaca, 'regla2', letrasProposicionalesA, letrasProposicionalesB)
 print("Finalizado!")
 
 #############################

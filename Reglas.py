@@ -11,6 +11,9 @@ with open('regla0.json', 'r') as file:
 with open('regla1.json', 'r') as file:
     reglas += json.load(file)
 
+with open('regla2.json', 'r') as file:
+    reglas += json.load(file)
+
 i = {'Ā': 1, 'Ą': 1, 'Ĉ': 1, 'Č': 1, 'ā': 1, 'ĕ': 1, 'ę': 1, 'ĝ': 1, 'Ģ': 1, 'Ħ': 1, 'Ī': 1, 'Į': 1, 'ĳ': 1, 'ķ': 1, 'Ļ': 1, 'Ŀ': 1}
 
 
