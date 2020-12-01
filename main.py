@@ -1,9 +1,13 @@
  # -*- coding: utf-8 -*-
+#####################3
+## link al repositorio: https://github.com/Danifado/Cuartetos.git
+
 import pygame
 import json
 import unit_propagate
 import codificacion
 import guardar_reglas
+import cualPedir
 
 #Para que el codigo funcione correctamente, los valores que deben haber
 #el input de cada player son:
@@ -178,9 +182,6 @@ def drawP4():
     pygame.draw.rect(win, (255,0,0), (800-x-width,y+90*3+50,width, height))
     win.blit(Player4[3], (800-x-width,y+90*3+50))
 
-def pideCarta():
-    nm = myfont.render('Pídele un D a Player 3', False, (0, 0, 0))
-    win.blit(nm, (260 ,250))
 
 infoP1 = input("¿Cual es la información del jugador 1?: ")
 infoP2 = input("¿Cual es la información del jugador 2?: ")
@@ -202,6 +203,13 @@ regla_fc = Regla_tmp_fclausal
 letrasProposicionalesA = [chr(x) for x in range(256, 1000)] # Modificar de acuerdo a reglas
 letrasProposicionalesB = [chr(x) for x in range(2001, 3000)] # Modificar de acuerdo a reglas
 guardar_reglas.guardar_fnc(regla_fc, 'regla1', letrasProposicionalesA, letrasProposicionalesB)
+
+paloP, jugadorJ = cualPedir.pide(posiciones)
+
+def pideCarta():
+    nm = myfont.render('Pídele un {0} a Player {1}'.format(paloP, jugadorJ), False, (0, 0, 0))
+    win.blit(nm, (260 ,250))
+
 
 with open('regla0.json', 'r') as file:
     reglas = json.load(file)
